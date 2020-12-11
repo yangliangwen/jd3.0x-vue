@@ -1,6 +1,7 @@
 <template>
   <div>
     <cube-form :model="model" :schema="schema" @submit="submitHandler"></cube-form>
+    账号 {{model.username}} 密码{{model.password}}
   </div>
 </template>
 
@@ -10,78 +11,65 @@ export default {
     return {
       model: {
         username: "",
-        password: "",
+        password: ""
       },
       schema: {
         fields: [
           {
-            //账号框
             type: "input",
-            modelkey: "username",
-            label: "用户名",
+            modelKey: "username",
+            label: "账号",
             props: {
-              placeholder: "请输入用户名",
+              placeholder: "请输入账号"
             },
             rules: {
-              //校验规则
-              required: true,
-              type: "string",
-              min: 3,
-              max: 15,
+              required: true
             },
-            trigger: "blur",
-            messages: {
-              required: "用户名不能为空",
-              min: "用户名不能少于3个字符",
-              max: "用户名不能大于15个字符",
-            },
+            // validating when blur
+            trigger: "blur"
           },
-
           {
-            //密码框
             type: "input",
-            modelkey: "password",
+            modelKey: "password",
             label: "密码",
             props: {
-              placeholder: "请输入密码",
-              type: "password",
-              eye: {
-                open: false,
-              },
+              type:'password',
+              placeholder: "请输入密码"
             },
             rules: {
-              //校验规则
-              required: true,
-              type: "string",
-              min: 3,
-              max: 15,
+              required: true
             },
-            trigger: "blur",
-            messages: {
-              required: "密码不能为空",
-              min: "密码不能少于3个字符",
-              max: "密码不能大于15个字符",
-            },
+            // validating when blur
+            trigger: "blur"
           },
-
           {
             type: "submit",
-            label: "注册",
-          },
-        ],
+            label: "注册"
+          }
+        ]
       },
+      options: {
+        scrollToInvalidField: true,
+        layout: "standard" // classic fresh
+      }
     };
   },
-
   methods: {
     submitHandler(e) {
-        e.preventDefault();
-        console.log("我注册了")
-        this.model.username="";
-        this.model.password="";
-
-    },
-  },
+      e.preventDefault();
+      // console.log("submit", this.model);
+      this.$http.get("/api/register", { params: this.model }).then(res => {
+        console.log(res);
+        if (res.data.success) {
+          console.log("注册页面传值", this.model);
+          this.$router.push({
+            name: "login",
+            params: this.model
+          });
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang="stylus" scoped></style>
