@@ -59,7 +59,7 @@ export default {
       // console.log("submit", this.model);
       this.$http.get("/api/register", { params: this.model }).then((res) => {
         console.log(res);
-        if (res.data.success) {
+        if (res.success) {
           console.log("注册页面传值", this.model);
           this.$router.push({
             name: "login",

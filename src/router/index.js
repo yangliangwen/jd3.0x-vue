@@ -13,6 +13,16 @@ const routes = [
     redirect: '/login',
   },
   {
+    path: '/index',
+    name: 'index',
+    component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')
+  },
+  {
+    path: '/bottomNav',
+    name: 'bottomNav',
+    component: () => import(/* webpackChunkName: "index" */ '../views/BottomNav.vue')
+  },
+  {
     path: '/register',
     name: 'register',
     component: () => import(/* webpackChunkName: "Register" */ '../views/Register.vue')
