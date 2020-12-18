@@ -63,7 +63,7 @@ export default {
           this.$store.commit("setToken", res.token);
           window.localStorage.setItem("token", res.token);
           this.$router.replace({
-            path: "/index",
+            path: "/bottomNav",
           });
         }
       } catch {}

@@ -17,11 +17,7 @@ const routes = [
     name: 'index',
     component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')
   },
-  {
-    path: '/bottomNav',
-    name: 'bottomNav',
-    component: () => import(/* webpackChunkName: "index" */ '../views/BottomNav.vue')
-  },
+ 
   {
     path: '/register',
     name: 'register',
@@ -34,8 +30,47 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "Login" */ '../views/Login.vue')
-  }
+  },
+  {
+    path: '/bottomNav',
+    name: 'bottomNav',
+    component: () => import(/* webpackChunkName: "index" */ '../views/BottomNav.vue'),
+    children:[
+      {
+        path: '',
+        redirect: 'index',
+      },
+      {
+        path: 'index',
+        name: 'index',
+        component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import(/* webpackChunkName: "index" */ '../views/List.vue')
+      },
+      {
+        path: 'search',
+        name: 'search',
+        component: () => import(/* webpackChunkName: "index" */ '../views/Search.vue')
+      },
+      {
+        path: 'car',
+        name: 'car',
+        component: () => import(/* webpackChunkName: "index" */ '../views/Car.vue')
+      },
+      {
+        path: 'mine',
+        name: 'mine',
+        component: () => import(/* webpackChunkName: "index" */ '../views/Mine.vue')
+      }
+    
+    ]
+  },
 ]
+
+
 
 const router = new VueRouter({
   mode: 'history',
